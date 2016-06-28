@@ -17,3 +17,5 @@ RUN addgroup -g 10099 ibtech-www \
 
 COPY config/php.ini /usr/local/etc/php/php.ini
 COPY config/php-fpm.conf /usr/local/etc/php-fpm.conf
+
+USER ibtech-www
