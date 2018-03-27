@@ -12,6 +12,7 @@ RUN addgroup -g 10099 ibtech-www \
     && docker-php-ext-install mysqli \
     && docker-php-ext-install soap \
     && docker-php-ext-install sockets \
+    && docker-php-ext-install shmop \
     && docker-php-ext-install zip \
     && rm -rf /var/cache/apk/*
 
