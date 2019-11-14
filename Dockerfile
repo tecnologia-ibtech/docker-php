@@ -15,6 +15,10 @@ RUN addgroup -g 10099 ibtech-www \
     && docker-php-ext-install shmop \
     && docker-php-ext-install zip \
     && rm -rf /var/cache/apk/*
+    
+RUN pecl install xdebug-2.5.3 \
+    && docker-php-ext-enable xdebug
 
+COPY config/99-xdebug.ini /usr/local/etc/php/conf.d/
 COPY config/php.ini /usr/local/etc/php/php.ini
 COPY config/php-fpm.conf /usr/local/etc/php-fpm.conf
