@@ -8,9 +8,7 @@ RUN set -ex; \
 		libjpeg-dev \
 		libpng-dev \
 		ssh \
-                libssh2-1 \
-                libssh2-1-dev \
-		libxml2-dev \
+                libxml2-dev \
 	; \
 	cd /root; \
 	apt-get autoremove -y; \
