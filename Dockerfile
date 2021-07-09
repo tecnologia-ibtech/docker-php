@@ -9,7 +9,6 @@ RUN set -ex; \
 		libpng-dev \
 		ssh \
                 libxml2-dev \
-		php-sysvsem \
 	; \
 	cd /root; \
 	apt-get autoremove -y; \
