@@ -22,7 +22,6 @@ RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - \
         && apt update \
         && apt install -y nodejs
 RUN npm install -g npm
-RUN npm install node-sass
 
 COPY config/php.ini /usr/local/etc/php/php.ini
 COPY docker-entrypoint.sh /docker-entrypoint.sh
