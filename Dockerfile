@@ -16,7 +16,7 @@ RUN set -ex; \
 	apt-get clean; \
 	\
 	docker-php-ext-configure gd --with-png-dir=/usr --with-jpeg-dir=/usr; \
-	docker-php-ext-install pdo pdo_mysql mbstring tokenizer xml gd mysqli opcache soap sockets shmop zip ssh2
+	docker-php-ext-install pdo pdo_mysql mbstring tokenizer xml gd mysqli opcache soap sockets shmop zip
 
 RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - \
         && apt update \
