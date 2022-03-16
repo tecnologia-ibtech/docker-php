@@ -27,4 +27,4 @@ COPY config/php.ini /usr/local/etc/php/php.ini
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 
 ENTRYPOINT ["sh","/docker-entrypoint.sh"]
-CMD ["php-fpm -R"]
+CMD ["php-fpm"]
