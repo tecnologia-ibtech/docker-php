@@ -20,5 +20,8 @@ RUN set -ex; \
 COPY config/php.ini /usr/local/etc/php/php.ini
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 
+COPY datadog-setup.php /datadog-setup.php
+RUN /usr/local/bin/php /datadog-setup.php --php-bin=all --enable-appsec
+
 ENTRYPOINT ["sh","/docker-entrypoint.sh"]
 CMD ["php-fpm"]
