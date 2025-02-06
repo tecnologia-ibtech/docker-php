@@ -17,6 +17,7 @@ RUN set -ex; \
         libxml2-dev \
         libzip-dev \
         unzip \
+        php-redis \
         && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Configurar e instalar extensões PHP
