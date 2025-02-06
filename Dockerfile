@@ -17,6 +17,7 @@ RUN set -ex; \
         libxml2-dev \
         libzip-dev \
         unzip \
+        php7.0-redis \
         && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Configurar e instalar extensões PHP
@@ -35,8 +36,8 @@ RUN docker-php-ext-configure gd \
         zip
 
 # **Ativar a extensão Redis sem instalar**
-RUN pecl install redis && docker-php-ext-enable redis
-RUN echo "extension=redis.so" > /usr/local/etc/php/conf.d/redis.ini
+#RUN pecl install redis && docker-php-ext-enable redis
+#RUN echo "extension=redis.so" > /usr/local/etc/php/conf.d/redis.ini
 
 # Instalar Node.js e npm
 RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - && \
