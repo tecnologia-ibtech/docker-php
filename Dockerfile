@@ -2,7 +2,8 @@ FROM php:7.0-fpm
 
 # Ajustar repositórios para os arquivos arquivados
 RUN sed -i 's|http://deb.debian.org/debian|http://archive.debian.org/debian|' /etc/apt/sources.list && \
-    sed -i 's|http://security.debian.org|http://archive.debian.org/debian-security|' /etc/apt/sources.list && \
+    sed -i '/stretch-updates/d' /etc/apt/sources.list && \
+    sed -i '/security/d' /etc/apt/sources.list && \
     echo 'Acquire::Check-Valid-Until "false";' > /etc/apt/apt.conf.d/99no-check-valid-until
 
 # Instalar dependências e extensões PHP
