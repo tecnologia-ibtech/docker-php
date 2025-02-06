@@ -6,13 +6,14 @@ RUN sed -i 's|http://deb.debian.org/debian|http://archive.debian.org/debian|' /e
     
 RUN set -ex; \
 	\
-	apt-get update; \
-	apt-get install -y \
-		git \
-		libjpeg-dev \
-		libpng-dev \
-		ssh \
-                libxml2-dev \
+	apt-get update && \
+	apt-get install -y --no-install-recommends \
+	git \
+	libjpeg-dev \
+	libpng-dev \
+	ssh \
+	libxml2-dev && \
+	apt-get clean && rm -rf /var/lib/apt/lists/*
 	; \
 	cd /root; \
 	apt-get autoremove -y; \
