@@ -32,6 +32,9 @@ RUN set -ex; \
         redis && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
+# **Ativar a extensão Redis sem instalar**
+RUN docker-php-ext-enable redis
+
 # Instalar Node.js e npm
 RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - && \
     apt-get update && apt-get install -y nodejs && \
