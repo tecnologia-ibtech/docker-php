@@ -38,7 +38,7 @@ RUN docker-php-ext-configure gd \
 RUN pecl install redis-3.1.1 && docker-php-ext-enable redis
 
 # Instalar Node.js e npm
-RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - && \
+RUN curl -sL https://deb.nodesource.com/setup_18.x | bash - && \
     apt-get update && apt-get install -y nodejs && \
     npm install -g npm && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
