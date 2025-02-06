@@ -1,4 +1,4 @@
-FROM php:7.0-fpm
+FROM php:7.3-fpm
 
 # Ajuste para usar os repositórios arquivados do Debian Stretch
 RUN sed -i 's|http://deb.debian.org/debian|http://archive.debian.org/debian|' /etc/apt/sources.list && \
