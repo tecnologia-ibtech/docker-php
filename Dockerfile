@@ -1,12 +1,12 @@
 FROM php:7.0-fpm
 
-# Ajustar repositórios para os arquivos arquivados
+# Ajustar repositórios para os arquivos arquivados do Debian Stretch
 RUN sed -i 's|http://deb.debian.org/debian|http://archive.debian.org/debian|' /etc/apt/sources.list && \
     sed -i '/stretch-updates/d' /etc/apt/sources.list && \
     sed -i '/security/d' /etc/apt/sources.list && \
     echo 'Acquire::Check-Valid-Until "false";' > /etc/apt/apt.conf.d/99no-check-valid-until
 
-# Instalar dependências e extensões PHP
+# Instalar dependências necessárias para extensões PHP
 RUN set -ex; \
     apt-get update && \
     apt-get install -y --no-install-recommends \
@@ -14,10 +14,14 @@ RUN set -ex; \
         libjpeg-dev \
         libpng-dev \
         ssh \
-        libxml2-dev && \
-    docker-php-ext-configure gd --with-png-dir=/usr --with-jpeg-dir=/usr && \
-    docker-php-ext-install \
-        pdo \
+        libxml2-dev \
+        libzip-dev \
+        unzip \
+        && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Configurar e instalar extensões PHP
+RUN docker-php-ext-configure gd \
+    && docker-php-ext-install \
         pdo_mysql \
         mbstring \
         tokenizer \
@@ -28,9 +32,7 @@ RUN set -ex; \
         soap \
         sockets \
         shmop \
-        zip \
-        redis && \
-    apt-get clean && rm -rf /var/lib/apt/lists/*
+        zip
 
 # **Ativar a extensão Redis sem instalar**
 RUN docker-php-ext-enable redis
