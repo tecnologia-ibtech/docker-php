@@ -1,11 +1,12 @@
-FROM php:7.3-fpm
+FROM php:7.0-fpm
 
-# Ajuste para usar os repositórios arquivados do Debian Stretch
+# Ajustar repositórios para os arquivos arquivados
 RUN sed -i 's|http://deb.debian.org/debian|http://archive.debian.org/debian|' /etc/apt/sources.list && \
-    sed -i 's|http://security.debian.org|http://archive.debian.org/debian-security|' /etc/apt/sources.list && \
+    sed -i '/stretch-updates/d' /etc/apt/sources.list && \
+    sed -i '/security/d' /etc/apt/sources.list && \
     echo 'Acquire::Check-Valid-Until "false";' > /etc/apt/apt.conf.d/99no-check-valid-until
 
-# Instalação de dependências e extensões PHP
+# Instalar dependências e extensões PHP
 RUN set -ex; \
     apt-get update && \
     apt-get install -y --no-install-recommends \
@@ -31,7 +32,7 @@ RUN set -ex; \
         redis && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Instalação do Node.js e npm
+# Instalar Node.js e npm
 RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - && \
     apt-get update && apt-get install -y nodejs && \
     npm install -g npm && \
