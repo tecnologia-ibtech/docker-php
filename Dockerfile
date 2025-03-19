@@ -35,7 +35,7 @@ RUN docker-php-ext-configure gd \
         zip
 
 # **Instalar a versão correta da extensão Redis via PECL**
-RUN pecl install redis-3.1.1 && docker-php-ext-enable redis
+RUN pecl install redis-4.3.0 && docker-php-ext-enable redis
 
 # Instalar Node.js e npm
 RUN curl -sL https://deb.nodesource.com/setup_14.x | bash - && \
