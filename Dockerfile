@@ -34,12 +34,6 @@ RUN docker-php-ext-configure gd \
         shmop \
         zip
 
-# Instalar Node.js e npm
-RUN curl -sL https://deb.nodesource.com/setup_14.x | bash - && \
-    apt-get update && apt-get install -y nodejs && \
-    npm install -g npm && \
-    apt-get clean && rm -rf /var/lib/apt/lists/*
-
 # Copiar configuração personalizada do PHP
 COPY config/php.ini /usr/local/etc/php/php.ini
 
