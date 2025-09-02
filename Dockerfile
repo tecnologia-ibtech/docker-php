@@ -8,7 +8,10 @@ RUN sed -i 's|http://deb.debian.org/debian|http://archive.debian.org/debian|' /e
 
 
 
-RUN curl -fsSL https://ftp-master.debian.org/keys/archive-key-8.asc | apt-key add - && \
+RUN set -ex; \
+    apt-get update && \
+    apt-get install -y gnupg curl && \
+    curl -fsSL https://ftp-master.debian.org/keys/archive-key-8.asc | apt-key add - && \
     apt-get update && \
     apt-get install -y --no-install-recommends \
         git \
@@ -19,7 +22,7 @@ RUN curl -fsSL https://ftp-master.debian.org/keys/archive-key-8.asc | apt-key ad
         libzip-dev \
         unzip && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
-
+    
 # Configurar e instalar extensões PHP
 RUN docker-php-ext-configure gd \
     && docker-php-ext-install \
