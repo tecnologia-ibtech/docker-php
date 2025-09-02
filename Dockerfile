@@ -15,7 +15,10 @@ RUN set -ex; \
         libpng-dev \
         ssh \
         libxml2-dev \
-    --allow-unauthenticated && \
+        libzip-dev \
+        unzip \
+        curl \
+        && apt-get clean && rm -rf /var/lib/apt/lists/* && \
     docker-php-ext-configure gd --with-png-dir=/usr --with-jpeg-dir=/usr && \
     docker-php-ext-install \
         pdo \
@@ -29,9 +32,15 @@ RUN set -ex; \
         soap \
         sockets \
         shmop \
-        zip \
-        redis && \
-    apt-get clean && rm -rf /var/lib/apt/lists/*
+        zip && \
+    # Instalar Redis via PECL
+    curl -fsSL https://pecl.php.net/get/redis-5.3.4.tgz | tar xvz && \
+    cd redis-5.3.4 && \
+    phpize && \
+    ./configure && \
+    make && \
+    make install && \
+    echo "extension=redis.so" > /usr/local/etc/php/conf.d/redis.ini
 
 # Instalar Node.js e npm
 RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - && \
@@ -45,6 +54,10 @@ COPY config/php.ini /usr/local/etc/php/php.ini
 # Adicionar e configurar o script de entrada
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 RUN chmod +x /docker-entrypoint.sh
+
+# Configuração do ponto de entrada e comando padrão
+ENTRYPOINT ["sh", "/docker-entrypoint.sh"]
+CMD ["php-fpm"]
 
 # Configuração do ponto de entrada e comando padrão
 ENTRYPOINT ["sh", "/docker-entrypoint.sh"]
