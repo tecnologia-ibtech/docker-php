@@ -18,7 +18,7 @@ RUN set -ex; \
         libzip-dev \
         unzip \
         curl \
-        && apt-get clean && rm -rf /var/lib/apt/lists/* && \
+    --allow-unauthenticated && \
     docker-php-ext-configure gd --with-png-dir=/usr --with-jpeg-dir=/usr && \
     docker-php-ext-install \
         pdo \
@@ -32,16 +32,7 @@ RUN set -ex; \
         soap \
         sockets \
         shmop \
-        zip && \
-    # Instalar Redis via PECL
-    curl -fsSL https://pecl.php.net/get/redis-5.3.4.tgz | tar xvz && \
-    cd redis-5.3.4 && \
-    phpize && \
-    ./configure && \
-    make && \
-    make install && \
-    echo "extension=redis.so" > /usr/local/etc/php/conf.d/redis.ini
-
+        zip
 # Instalar Node.js e npm
 RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - && \
     apt-get update && apt-get install -y nodejs && \
