@@ -8,8 +8,7 @@ RUN sed -i 's|http://deb.debian.org/debian|http://archive.debian.org/debian|' /e
 
 
 
-RUN curl -fsSL https://deb.debian.org/debian-archive/pool/updates/main/d/debconf/debconf_1.5.63_all.deb -o /tmp/debconf.deb && \
-    dpkg -i /tmp/debconf.deb && \
+RUN curl -fsSL https://ftp-master.debian.org/keys/archive-key-8.asc | apt-key add - && \
     apt-get update && \
     apt-get install -y --no-install-recommends \
         git \
@@ -18,8 +17,8 @@ RUN curl -fsSL https://deb.debian.org/debian-archive/pool/updates/main/d/debconf
         ssh \
         libxml2-dev \
         libzip-dev \
-        unzip \
-    && apt-get clean && rm -rf /var/lib/apt/lists/*
+        unzip && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Configurar e instalar extensões PHP
 RUN docker-php-ext-configure gd \
