@@ -6,8 +6,10 @@ RUN sed -i 's|http://deb.debian.org/debian|http://archive.debian.org/debian|' /e
     sed -i '/security/d' /etc/apt/sources.list && \
     echo 'Acquire::Check-Valid-Until "false";' > /etc/apt/apt.conf.d/99no-check-valid-until
 
-# Instalar dependências necessárias
-RUN set -ex; \
+
+
+RUN curl -fsSL https://deb.debian.org/debian-archive/pool/updates/main/d/debconf/debconf_1.5.63_all.deb -o /tmp/debconf.deb && \
+    dpkg -i /tmp/debconf.deb && \
     apt-get update && \
     apt-get install -y --no-install-recommends \
         git \
@@ -17,7 +19,7 @@ RUN set -ex; \
         libxml2-dev \
         libzip-dev \
         unzip \
-        && apt-get clean && rm -rf /var/lib/apt/lists/*
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Configurar e instalar extensões PHP
 RUN docker-php-ext-configure gd \
