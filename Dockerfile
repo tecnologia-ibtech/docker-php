@@ -9,7 +9,7 @@ RUN sed -i 's|http://deb.debian.org/debian|http://archive.debian.org/debian|' /e
 # Instalar dependências necessárias
 RUN set -ex; \
     apt-get update && \
-    apt-get install -y --no-install-recommends \
+    apt-get install -y --no-install-recommends --allow-unauthenticated \
         git \
         libjpeg-dev \
         libpng-dev \
@@ -17,7 +17,7 @@ RUN set -ex; \
         libxml2-dev \
         libzip-dev \
         unzip \
-        && apt-get clean && rm -rf /var/lib/apt/lists/*
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Configurar e instalar extensões PHP
 RUN docker-php-ext-configure gd \
