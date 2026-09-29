@@ -29,6 +29,10 @@ RUN docker-php-ext-configure gd --with-jpeg \
         shmop \
         zip
 
+# phpredis para o motor de galeria em Redis do b2b. Pinado: 6.3.0 e a ultima do PECL e compila no 8.5;
+# um "pecl install redis" solto mudaria de versao a cada rebuild do Hub. Mesma versao na 8.5-dev.
+RUN pecl install redis-6.3.0 && docker-php-ext-enable redis
+
 COPY config/php.ini /usr/local/etc/php/php.ini
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 RUN sed -i 's/\r$//' /docker-entrypoint.sh && chmod +x /docker-entrypoint.sh
