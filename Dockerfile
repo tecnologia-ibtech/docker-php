@@ -1,4 +1,6 @@
-FROM php:8.5-fpm
+FROM php:8.5.12-fpm-trixie
+# Base fixada (versao do PHP + Debian): 8.5.12 corrige CVE-2026-109618/109619 (RCE, advisory de 21/10/2026).
+# Para atualizar o PHP: trocar a versao aqui e publicar tambem a tag fixa ibtech/php:<versao>-dev.
 
 # ibtech/php:8.5-dev — imagem de DESENVOLVIMENTO da migracao PHP 8 do geovendas-b2b.
 #
